@@ -1,16 +1,16 @@
 import asyncio
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from db_operations.cat_operations import select_all_next_round_cats, insert_current_round_cats, delete_all_next_round_cats
+from queries.cat_queries import CatQueries
 from models.cat_model import CurrentRoundCatCreate
 
 
 async def fetch_firestore_data():
     print('working')
-    next_round_cats = await select_all_next_round_cats()
+    next_round_cats = await CatQueries.select_all_next_round_cats()
     current_round_cats = [CurrentRoundCatCreate(**cat.model_dump()) for cat in next_round_cats]
-    await insert_current_round_cats(current_round_cats)
-    await delete_all_next_round_cats(next_round_cats)
+    await CatQueries.insert_current_round_cats(current_round_cats)
+    await CatQueries.delete_all_next_round_cats(next_round_cats)
     print('done')
 
 
