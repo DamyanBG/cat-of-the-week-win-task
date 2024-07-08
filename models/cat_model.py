@@ -1,0 +1,53 @@
+from pydantic import BaseModel, Field
+from datetime import datetime
+
+from typing import Optional
+
+
+class BaseCatModel(BaseModel):
+    name: str
+    created_on: Optional[datetime] = Field(default_factory=datetime.now)
+    birth_date: Optional[datetime]
+    microchip: Optional[str]
+    color: Optional[str]
+    breed: Optional[str]
+    photo_id: Optional[str]
+
+
+class CatCreate(BaseCatModel):
+    pass
+
+
+class CurrentRoundCatBase(BaseCatModel):
+    user_id: Optional[str]
+    likes: int = 0
+    dislikes: int = 0
+    votes: int = 0
+
+
+class CurrentRoundCatCreate(CurrentRoundCatBase):
+    pass
+
+
+class CurrentRoundCatModel(CurrentRoundCatBase):
+    id: str
+
+
+class CurrentRoundCatWithPhotoUrl(BaseCatModel):
+    id: str
+    user_id: Optional[str]
+    likes: int = 0
+    dislikes: int = 0
+    votes: int = 0
+    photo_url: str
+
+
+class NextRoundCatModel(BaseCatModel):
+    id: str
+    user_id: Optional[str]
+
+
+class CatOfTheWeekModel(BaseCatModel):
+    id: str
+    user_id: Optional[str]
+    the_week: Optional[datetime]
