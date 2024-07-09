@@ -60,5 +60,9 @@ class CatOfTheWeekModel(CatOfTheWeekBase):
     id: str
 
 
+class CatOfTheWeekWithImage(CatOfTheWeekModel):
+    image_url: str
+
+
 class CatOfTheWeekCreate(CatOfTheWeekBase):
     pass
